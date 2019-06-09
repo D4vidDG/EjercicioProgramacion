@@ -11,7 +11,6 @@ import java.io.*;
 public class Empresa {
     private ArrayList stocks;
     private ArrayList cash;
-    private ArrayList divstocks;
     private Scanner read_entry; 
     private PrintStream out;
     private Scanner read_out;
@@ -25,9 +24,9 @@ public class Empresa {
     
     
     public void decrypt_write(){
-        while(read.hasNext()){
-        if(!read.hasNextInt()){
-        String word=read.next(); 
+        while(read_entry.hasNext()){
+        if(!read_entry.hasNextInt()){
+        String word=read_entry.next(); 
         char[] word_array = word.toCharArray();
         for(int i=0;i<word.length();i++){
         if(word_array[i]=='\n'){
@@ -48,8 +47,8 @@ public class Empresa {
         out.print(",");
         out.flush();           
 }
-        if(read.hasNextInt()){
-     out.print(read.nextInt()+",");
+        if(read_entry.hasNextInt()){
+     out.print(read_entry.nextInt()+",");
      out.flush();
     }  
     }
@@ -88,16 +87,33 @@ public class Empresa {
                    double div_price=read_out.nextDouble();
                    int div_shares=read_out.nextInt();
                    double dividends=read_out.nextDouble();
-                   this.divstocks.add(new DividendStock(div_symbol, div_cost, div_price, div_shares, dividends));
+                   this.stocks.add(new DividendStock(div_symbol, div_cost, div_price, div_shares, dividends));
                    System.out.println("DividendStock"+" "+stock+"------------");
                    System.out.println("Symbol:"+div_symbol);
                    System.out.println("Total cost:"+div_cost);
                    System.out.println("Current price:"+div_price);
                    System.out.println("Total shares:"+div_shares);
+                   System.out.println("Dividends:"+dividends);
                    div++;
                    break;
            } 
         }
     }
+    public double google_samsung_total_MarketValue_profit(){
+        double total_value=0;
+        for(Stock stock:stocks){
+            if(stock.symbol.equals("GOOGLE")||stock.symbol.equals("SAMSUNG")){
+             total_value=total_value+stock.getMarketValue();
+            }
+                    
+        }
+        return total_value;
+        
+    }
+    
+    public double total_profit(){
+        
+    }
+    }
+    
    
-}
